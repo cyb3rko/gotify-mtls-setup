@@ -1,0 +1,20 @@
+#{
+#    log {
+#        level debug
+#    }
+#}
+
+(require_client_cert) {
+    tls {
+        client_auth {
+            mode require
+            trusted_leaf_cert_file /client.crt
+        }
+    }
+}
+
+your.domain:3003 {
+    import require_client_cert
+    reverse_proxy 10.14.0.3:8080
+    tls internal
+}
